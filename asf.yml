@@ -2,7 +2,26 @@
 - name: install asf
   hosts: "asfservers"
   tasks:
-  - name: pull
+  - name: Pull asf image
     docker_image:
       name: justarchi/archisteamfarm
       source: pull
+  - name: Stop asf container
+    docker_container:
+      name: asf
+      state: stopped
+    ignore_errors: yes
+  - name: Remove asf container
+    docker_container:
+      name: asf
+      state: absent
+    ignore_errors: yes
+  - name: Create asf container
+    docker_container:
+      name: asf
+      image: justarchi/archisteamfarm
+      restart_policy: always
+      volumes:
+        - /opt/asf/config:/app/config
+      ports:
+        - "127.0.0.1:1242:1242"
