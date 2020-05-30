@@ -1,0 +1,21 @@
+---
+- name: install docker
+  hosts: "all"
+  become: true
+
+  roles:
+    - role: "nickjj.docker"
+      tags: ["docker"]
+  vars:
+    docker__state: "present"
+    docker__pip_virtualenv: "/usr/local/lib/docker/virtualenv"
+    docker__pip_dependencies:
+      - "gcc"
+      - "python-setuptools"
+      - "python3-dev"
+      - "python3-pip"
+      - "virtualenv"
+    docker__default_pip_packages:
+      - name: "docker"
+        state: "{{ docker__pip_docker_state }}"
+    docker__pip_docker_state: "present"
