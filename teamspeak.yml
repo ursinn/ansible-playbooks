@@ -2,7 +2,30 @@
 - name: install teamspeak
   hosts: "tsservers"
   tasks:
-  - name: pull
+  - name: Pull teamspeak
     docker_image:
       name: teamspeak
       source: pull
+  - name: Stop teamspeak container
+    docker_container:
+      name: teamspeak
+      state: stopped
+    ignore_errors: yes
+  - name: Remove teamspeak container
+    docker_container:
+      name: teamspeak
+      state: absent
+    ignore_errors: yes
+  - name: Create teamspeak container
+    docker_container:
+      name: teamspeak
+      image: teamspeak
+      restart_policy: always
+      volumes:
+        - /opt/teamspeak:/var/ts3server/
+      ports:
+        - "9987:9987/udp"
+        - "10011:10011"
+        - "30033:30033"
+      env:
+        TS3SERVER_LICENSE: "accept"
