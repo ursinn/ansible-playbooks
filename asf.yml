@@ -1,0 +1,8 @@
+---
+- name: install asf
+  hosts: "asfservers"
+  tasks:
+  - name: pull
+    docker_image:
+      name: justarchi/archisteamfarm
+      source: pull
