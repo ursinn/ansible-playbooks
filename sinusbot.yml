@@ -1,0 +1,31 @@
+---
+- name: install sinusbot
+  hosts: "musikservers"
+  tasks:
+  - name: Pull sinusbot image
+    docker_image:
+      name: sinusbot/docker
+      source: pull
+  - name: Stop sinusbot container
+    docker_container:
+      name: sinusbot
+      state: stopped
+    ignore_errors: yes
+  - name: Remove sinusbot container
+    docker_container:
+      name: sinusbot
+      state: absent
+    ignore_errors: yes
+  - name: Create sinusbot container
+    docker_container:
+      name: sinusbot
+      image: sinusbot/docker
+      restart_policy: always
+      volumes:
+        - /opt/sinusbot/scripts:/opt/sinusbot/scripts
+        - /opt/sinusbot/data:/opt/sinusbot/data
+      ports:
+        - "8087:8087"
+      env:
+        UID: "1002"
+        GID: "1002"
