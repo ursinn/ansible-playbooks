@@ -1,0 +1,8 @@
+---
+- name: install teamspeak
+  hosts: "tsservers"
+  tasks:
+  - name: pull
+    docker_image:
+      name: teamspeak
+      source: pull
