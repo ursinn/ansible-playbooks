@@ -7,18 +7,21 @@
       name: sinusbot/docker
       source: pull
     register: pull
+    
   - name: Stop sinusbot container
     docker_container:
       name: sinusbot
       state: stopped
     ignore_errors: yes
     when: pull.changed
+    
   - name: Remove sinusbot container
     docker_container:
       name: sinusbot
       state: absent
     ignore_errors: yes
     when: pull.changed
+    
   - name: Create sinusbot container
     docker_container:
       name: sinusbot
