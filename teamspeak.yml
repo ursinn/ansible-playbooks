@@ -1,6 +1,6 @@
 ---
-- name: install teamspeak
-  hosts: "tsservers"
+- hosts: "tsservers"
+  become: true
   tasks:
   - name: Pull teamspeak
     docker_image:
