@@ -6,18 +6,21 @@
       name: justarchi/archisteamfarm
       source: pull
     register: pull
+    
   - name: Stop asf container
     docker_container:
       name: asf
       state: stopped
     ignore_errors: yes
     when: pull.changed
+    
   - name: Remove asf container
     docker_container:
       name: asf
       state: absent
     ignore_errors: yes
     when: pull.changed
+    
   - name: Create asf container
     docker_container:
       name: asf
