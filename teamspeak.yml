@@ -7,18 +7,21 @@
       name: teamspeak
       source: pull
     register: pull
+    
   - name: Stop teamspeak container
     docker_container:
       name: teamspeak
       state: stopped
     ignore_errors: yes
     when: pull.changed
+    
   - name: Remove teamspeak container
     docker_container:
       name: teamspeak
       state: absent
     ignore_errors: yes
     when: pull.changed
+    
   - name: Create teamspeak container
     docker_container:
       name: teamspeak
