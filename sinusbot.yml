@@ -1,6 +1,6 @@
 ---
-- name: install sinusbot
-  hosts: "musikservers"
+- hosts: "musikservers"
+  become: true
   tasks:
   - name: Pull sinusbot image
     docker_image:
