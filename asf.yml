@@ -1,6 +1,5 @@
 ---
-- name: install asf
-  hosts: "asfservers"
+- hosts: "asfservers"
   tasks:
   - name: Pull asf image
     docker_image:
